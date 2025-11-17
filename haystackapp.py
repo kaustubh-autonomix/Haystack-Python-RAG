@@ -10,16 +10,39 @@ Supports:
 import argparse
 from pipelines.ingestion import ingest_pdf
 from pipelines.querying import answer_query
+import tkinter as tk
+from tkinter import filedialog
 
 
 def interactive_loop():
-    print("Haystack RAG CLI (type 'exit' to quit)")
+    print("""
+============================
+       Haystack RAG CLI
+============================
+Commands:
+  ingest <file.pdf>
+  ask <your question>
+  exit
+----------------------------
+Enter command:
+""")
     while True:
         cmd = input("> ").strip()
         if cmd.lower() == "exit":
             break
-        if cmd.startswith("ingest "):
-            path = cmd.replace("ingest ", "", 1).strip()
+        if cmd.startswith("ingest"):
+            parts = cmd.split(" ", 1)
+            if len(parts) == 1:
+                root = tk.Tk()
+                root.withdraw()
+                path = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
+                root.destroy()
+                if not path:
+                    print("No file selected.")
+                    continue
+            else:
+                path = parts[1].strip()
+
             result = ingest_pdf(path)
             print(f"Ingested: {result['chunks']} chunks")
         elif cmd.startswith("ask "):

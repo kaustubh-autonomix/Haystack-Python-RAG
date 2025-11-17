@@ -20,7 +20,9 @@ CLASS_NAME = "DocumentChunk"
 
 
 def create_schema():
-    if client.schema.contains(CLASS_NAME):
+    existing = client.schema.get()
+    classes = [c["class"] for c in existing.get("classes", [])]
+    if CLASS_NAME in classes:
         return
 
     schema = {
