@@ -1,6 +1,6 @@
 """
-Minimal Gemini embedding helper for Haystack-Python-RAG.
-Provides embed_texts(texts) → list of embedding vectors.
+this file is for embed_texts(texts) → list of embedding vectors.
+helps in embedding text through gemini
 """
 
 import os
@@ -24,9 +24,7 @@ _EMBED_URL = (
     "text-embedding-004:embedContent?key=" + GEMINI_API_KEY
 )
 
-
 def _embed_single(text: str) -> List[float]:
-    """Embed a single text. Lightweight, no retries."""
     payload = {
         "model": "models/text-embedding-004",
         "content": {"parts": [{"text": text}]},
@@ -36,11 +34,10 @@ def _embed_single(text: str) -> List[float]:
     r.raise_for_status()
     data = r.json()
 
-    # Standard Gemini embedding format
     if "embedding" in data:
         return data["embedding"].get("values", [])
 
-    # Fallback (rare)
+    # Fallback (rare fir bhi kabhi hua toh)
     if "responses" in data and isinstance(data["responses"], list):
         emb = data["responses"][0].get("embedding", {}).get("values", [])
         return emb
@@ -49,7 +46,7 @@ def _embed_single(text: str) -> List[float]:
 
 
 def embed_texts(texts: List[str]) -> List[List[float]]:
-    """Embed a list of texts sequentially (simple + predictable)."""
+    """Embedding a list of texts sequentially (simple + predictable)."""
     embeddings = []
     for t in texts:
         emb = _embed_single(t)

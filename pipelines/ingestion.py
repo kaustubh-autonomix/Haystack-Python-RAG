@@ -9,7 +9,6 @@ from modules.splitter import split_text
 from modules.embedding_gemini import embed_texts
 from modules.store_weaviate import create_schema, store_documents
 
-
 def ingest_pdf(path: str, chunk_size: int = 800, overlap: int = 100):
     create_schema()
     full_text = read_pdf(path)

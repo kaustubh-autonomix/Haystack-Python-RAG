@@ -1,12 +1,11 @@
 
 
 """
-Minimal PDF reader using pdfplumber.
-Provides read_pdf(path) → extracted text.
+small PDF reader using pdfplumber,
+This Provides read_pdf(path) → extracted text.
 """
 
 import pdfplumber
-
 
 def read_pdf(path: str) -> str:
     text_parts = []

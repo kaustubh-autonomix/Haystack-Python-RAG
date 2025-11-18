@@ -1,8 +1,6 @@
-
-
 """
-Minimal local Weaviate store helper for Haystack-Python-RAG.
-Provides create_schema(), store_documents(docs), and query_embeddings().
+local Weaviate store helper,
+This Provides create_schema(), store_documents(docs), and query_embeddings().
 """
 
 import os
@@ -11,13 +9,9 @@ from dotenv import load_dotenv
 from typing import List, Dict, Any
 
 load_dotenv()
-
 WEAVIATE_URL = os.getenv("WEAVIATE_URL", "http://localhost:8080")
-
 client = weaviate.Client(url=WEAVIATE_URL)
-
 CLASS_NAME = "DocumentChunk"
-
 
 def create_schema():
     existing = client.schema.get()

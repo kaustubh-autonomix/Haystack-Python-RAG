@@ -1,9 +1,9 @@
 """
 CLI entrypoint for Haystack-Python-RAG.
 Supports:
-  python haystackapp.py                  → interactive mode
-  python haystackapp.py --file doc.pdf   → ingest only
-  python haystackapp.py --query "text"   → query only
+  python haystackapp.py                       → interactive mode
+  python haystackapp.py --file doc.pdf        → ingest only
+  python haystackapp.py --query "text"        → query only
   python haystackapp.py --file doc.pdf --query "text" → ingest + answer
 """
 
@@ -20,14 +20,14 @@ def interactive_loop():
        Haystack RAG CLI
 ============================
 Commands:
-  ingest <file.pdf>
+  ingest 
   ask <your question>
   exit
 ----------------------------
 Enter command:
 """)
     while True:
-        cmd = input("> ").strip()
+        cmd = input("insert your query here > ").strip()
         if cmd.lower() == "exit":
             break
         if cmd.startswith("ingest"):

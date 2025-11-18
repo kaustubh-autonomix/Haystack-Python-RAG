@@ -9,6 +9,7 @@ from modules.generator_gemini import generate_answer
 
 def answer_query(query: str, top_k: int = 5) -> str:
     q_emb = embed_texts([query])[0]
+
     hits = query_embeddings(q_emb, top_k=top_k)
 
     context = "\n".join([h.get("text", "") for h in hits])

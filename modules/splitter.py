@@ -1,10 +1,9 @@
 
 
 """
-Minimal text splitter for Haystack-Python-RAG.
-Provides split_text(text, chunk_size, overlap).
+this is text splitter,
+This Provides split_text(text, chunk_size, overlap).
 """
-
 
 def split_text(text: str, chunk_size: int = 800, overlap: int = 100):
     chunks = []

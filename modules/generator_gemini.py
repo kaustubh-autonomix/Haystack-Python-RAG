@@ -1,6 +1,5 @@
 """
-Minimal Gemini text-generation helper for Haystack-Python-RAG.
-Provides generate_answer(prompt) → string.
+Gemini text-generation helper provides generate_answer(prompt) → string.
 """
 
 import os
