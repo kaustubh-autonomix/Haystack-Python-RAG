@@ -16,7 +16,7 @@ from pipelines.querying import answer_query
 from pipelines.monitor import get_stats
 import tkinter as tk
 from tkinter import filedialog
-from modules.auth import verify_tenant
+from modules.tenant_manager import verify_tenant_credentials as verify_tenant
 
 CURRENT_TENANT = None
 

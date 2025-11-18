@@ -32,10 +32,19 @@ def create_schema():
             {
                 "class": CLASS_NAME,
                 "vectorizer": "none",
+                "vectorIndexType": "hnsw",
+                "vectorIndexConfig": {
+                    "efConstruction": 128,
+                    "maxConnections": 64,
+                    "ef": 32
+                },
+                "replicationConfig": {
+                    "factor": 1
+                },
                 "properties": [
                     {"name": "text", "dataType": ["text"]},
-                    {"name": "tenant_id", "dataType": ["string"]},
-                ],
+                    {"name": "tenant_id", "dataType": ["string"]}
+                ]
             }
         ]
     }
