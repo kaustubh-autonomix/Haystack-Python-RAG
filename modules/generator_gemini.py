@@ -5,6 +5,7 @@ Gemini text-generation helper provides generate_answer(prompt) → string.
 import os
 import requests
 from dotenv import load_dotenv
+import time
 
 load_dotenv()
 
@@ -29,11 +30,15 @@ def generate_answer(prompt: str, max_tokens: int = 512) -> str:
         }
     }
 
-    r = requests.post(_GEN_URL, json=payload, timeout=60)
-    r.raise_for_status()
-    data = r.json()
-
-    try:
-        return data["candidates"][0]["content"]["parts"][0].get("text", "")
-    except Exception:
-        return str(data)
+    attempts = 3
+    for attempt in range(attempts):
+        try:
+            r = requests.post(_GEN_URL, json=payload, timeout=60)
+            r.raise_for_status()
+            data = r.json()
+            return data["candidates"][0]["content"]["parts"][0].get("text", "")
+        except Exception as e:
+            if attempt < attempts - 1:
+                time.sleep(2 ** attempt)
+                continue
+            return f"Gemini API error: {str(e)}"

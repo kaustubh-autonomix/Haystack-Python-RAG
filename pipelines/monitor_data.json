@@ -1,0 +1,9 @@
+{
+  "tenantA": {
+    "ingestions": 1,
+    "queries": 1,
+    "chunks": 44,
+    "last_ingest": "2025-11-18T11:11:57.111488 | jesc106trialquery.pdf",
+    "last_query": "2025-11-18T11:12:34.257712 | what is the chapter name"
+  }
+}

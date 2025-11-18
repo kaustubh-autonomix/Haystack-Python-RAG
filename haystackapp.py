@@ -7,14 +7,31 @@ Supports:
   python haystackapp.py --file doc.pdf --query "text" → ingest + answer
 """
 
+from modules.weaviate_check import ensure_weaviate_running
+
 import argparse
+import subprocess
 from pipelines.ingestion import ingest_pdf
 from pipelines.querying import answer_query
+from pipelines.monitor import get_stats
 import tkinter as tk
 from tkinter import filedialog
+from modules.auth import verify_tenant
+
+CURRENT_TENANT = None
 
 
 def interactive_loop():
+    global CURRENT_TENANT
+    if not CURRENT_TENANT:
+        while True:
+            tenant = input("Enter tenant id: ").strip()
+            password = input("Enter password: ").strip()
+            if verify_tenant(tenant, password):
+                CURRENT_TENANT = tenant
+                break
+            else:
+                print("Invalid tenant id or password. Try again.")
     print("""
 ============================
        Haystack RAG CLI
@@ -22,6 +39,7 @@ def interactive_loop():
 Commands:
   ingest 
   ask <your question>
+  stats
   exit
 ----------------------------
 Enter command:
@@ -43,12 +61,18 @@ Enter command:
             else:
                 path = parts[1].strip()
 
-            result = ingest_pdf(path)
+            result = ingest_pdf(path, CURRENT_TENANT)
             print(f"Ingested: {result['chunks']} chunks")
         elif cmd.startswith("ask "):
             q = cmd.replace("ask ", "", 1).strip()
-            ans = answer_query(q)
+            ans = answer_query(q, CURRENT_TENANT)
             print(ans)
+        elif cmd == "stats":
+            stats = get_stats()
+            if CURRENT_TENANT in stats:
+                print(stats[CURRENT_TENANT])
+            else:
+                print("No stats for this tenant.")
         else:
             print("Commands: ingest <file>, ask <query>, exit")
 
@@ -59,16 +83,29 @@ def main():
     parser.add_argument("--query", type=str, default=None, help="Query to ask")
     args = parser.parse_args()
 
+    ensure_weaviate_running()
+
+    global CURRENT_TENANT
+    if not CURRENT_TENANT:
+        while True:
+            tenant = input("Enter tenant id: ").strip()
+            password = input("Enter password: ").strip()
+            if verify_tenant(tenant, password):
+                CURRENT_TENANT = tenant
+                break
+            else:
+                print("Invalid tenant id or password. Try again.")
+
     if not args.file and not args.query:
         interactive_loop()
         return
 
     if args.file:
-        result = ingest_pdf(args.file)
+        result = ingest_pdf(args.file, CURRENT_TENANT)
         print(f"Ingested: {result['chunks']} chunks")
 
     if args.query:
-        ans = answer_query(args.query)
+        ans = answer_query(args.query, CURRENT_TENANT)
         print(ans)
 
 
