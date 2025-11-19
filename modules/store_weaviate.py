@@ -43,7 +43,9 @@ def create_schema():
                 },
                 "properties": [
                     {"name": "text", "dataType": ["text"]},
-                    {"name": "tenant_id", "dataType": ["string"]}
+                    {"name": "tenant_id", "dataType": ["string"]},
+                    {"name": "kb_id", "dataType": ["string"]},
+                    {"name": "pdf_id", "dataType": ["string"]}
                 ]
             }
         ]
@@ -52,12 +54,12 @@ def create_schema():
     client.schema.create(schema)
 
 
-def store_documents(chunks: List[str], embeddings: List[List[float]], tenant_id: str):
+def store_documents(chunks: List[str], embeddings: List[List[float]], tenant_id: str, kb_id: str, pdf_id: str):
     client = get_client()
     with client.batch as batch:
         for txt, emb in zip(chunks, embeddings):
             batch.add_data_object(
-                data_object={"text": txt, "tenant_id": tenant_id},
+                data_object={"text": txt, "tenant_id": tenant_id, "kb_id": kb_id, "pdf_id": pdf_id},
                 class_name=CLASS_NAME,
                 vector=emb,
             )

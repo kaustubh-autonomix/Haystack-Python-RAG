@@ -1,9 +1,75 @@
 {
-  "tenantA": {
-    "ingestions": 1,
-    "queries": 1,
-    "chunks": 44,
-    "last_ingest": "2025-11-18T11:11:57.111488 | jesc106trialquery.pdf",
-    "last_query": "2025-11-18T11:12:34.257712 | what is the chapter name"
+  "kaustubh": {
+    "ingestions": 0,
+    "queries": 0,
+    "chunks": 0,
+    "last_ingest": null,
+    "last_query": null,
+    "jobs": {
+      "704b6de2-d3b6-438b-872b-deb348558eb9": {
+        "status": "failed",
+        "filename": "/Users/apple/Downloads/jesc106trialquery.pdf",
+        "started_at": "2025-11-19T18:45:53.876693",
+        "finished_at": "2025-11-19T18:46:11.043776",
+        "error": "Invalid format specifier",
+        "chunks": null
+      },
+      "a41012d3-e15c-4dd8-905a-55634db5f9f5": {
+        "status": "failed",
+        "filename": "/Users/apple/Downloads/jesc106trialquery.pdf",
+        "started_at": "2025-11-19T18:53:28.930379",
+        "finished_at": "2025-11-19T18:53:46.252847",
+        "error": "Invalid format specifier",
+        "chunks": null
+      },
+      "7bdfed64-94fb-4215-9e5d-72a91734279c": {
+        "status": "failed",
+        "filename": "/Users/apple/Downloads/jesc106trialquery.pdf",
+        "started_at": "2025-11-19T19:00:38.750727",
+        "finished_at": "2025-11-19T19:00:56.037092",
+        "error": "'\\n  \"nodes\"'",
+        "chunks": null
+      },
+      "b972950c-775e-48dc-972f-d684b48be04b": {
+        "status": "failed",
+        "filename": "/Users/apple/Downloads/jesc106trialquery.pdf",
+        "started_at": "2025-11-19T19:05:16.193770",
+        "finished_at": "2025-11-19T19:05:33.653928",
+        "error": "'\\n  \"nodes\"'",
+        "chunks": null
+      },
+      "89f24205-09ac-4a6f-b382-f898307528d4": {
+        "status": "failed",
+        "filename": "/Users/apple/Downloads/jesc106trialquery.pdf",
+        "started_at": "2025-11-19T19:11:52.181206",
+        "finished_at": "2025-11-19T19:12:09.567666",
+        "error": "'\\n  \"nodes\"'",
+        "chunks": null
+      },
+      "5c65e711-5746-46fc-8e4e-671d2f0aad24": {
+        "status": "failed",
+        "filename": "/Users/apple/Downloads/jesc106trialquery.pdf",
+        "started_at": "2025-11-19T19:18:34.192765",
+        "finished_at": "2025-11-19T19:18:51.355064",
+        "error": "Gemini KG extraction failed: module 'google.generativeai' has no attribute 'generate_text'",
+        "chunks": null
+      },
+      "c231e82d-7db1-4fd0-b4d8-cd6751413bb0": {
+        "status": "failed",
+        "filename": "/Users/apple/Downloads/jesc106trialquery.pdf",
+        "started_at": "2025-11-19T19:22:09.382338",
+        "finished_at": "2025-11-19T19:22:26.612837",
+        "error": "Gemini KG extraction failed: '\\n  \"nodes\"'",
+        "chunks": null
+      },
+      "c802cb6f-d626-458f-975f-924ba8b16cf3": {
+        "status": "failed",
+        "filename": "/Users/apple/Downloads/Downloadreceipt.pdf",
+        "started_at": "2025-11-19T19:37:58.050455",
+        "finished_at": "2025-11-19T19:37:58.880173",
+        "error": "Gemini KG extraction failed: '\\n  \"nodes\"'",
+        "chunks": null
+      }
+    }
   }
 }

@@ -8,6 +8,7 @@ import logging
 import requests
 from dotenv import load_dotenv
 from typing import List
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 load_dotenv()
 
@@ -44,11 +45,17 @@ def _embed_single(text: str) -> List[float]:
 
     raise RuntimeError(f"Unexpected embedding response: {data}")
 
+def _embed_parallel(texts: List[str], workers: int = 4) -> List[List[float]]:
+    embeddings = [None] * len(texts)
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        futures = {ex.submit(_embed_single, texts[i]): i for i in range(len(texts))}
+        for fut in as_completed(futures):
+            idx = futures[fut]
+            try:
+                embeddings[idx] = fut.result()
+            except Exception as e:
+                raise RuntimeError(f"Embedding failed for chunk {idx}: {e}")
+    return embeddings
 
 def embed_texts(texts: List[str]) -> List[List[float]]:
-    """Embedding a list of texts sequentially (simple + predictable)."""
-    embeddings = []
-    for t in texts:
-        emb = _embed_single(t)
-        embeddings.append(emb)
-    return embeddings
+    return _embed_parallel(texts, workers=4)
